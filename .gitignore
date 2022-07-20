@@ -1,0 +1,4 @@
+nodemon.json
+pm2-process.json
+/node_modules
+/dist
