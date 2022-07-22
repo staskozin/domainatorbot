@@ -4,7 +4,12 @@ declare global {
       DEV_MODE: '0' | '1' | undefined,
       BOT_TOKEN: string,
       WEBHOOK_URL: string,
-      PORT: number
+      PORT: number,
+      PGUSER: string,
+      PGHOST: string,
+      PGPASSWORD: string,
+      PGDATABASE: string,
+      PGPORT: number
     }
   }
 }
