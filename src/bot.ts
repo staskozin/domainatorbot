@@ -16,10 +16,3 @@ bot.on('message', async msg => {
 })
 
 export default bot
-
-type Domain = {
-  domain_name: string,
-  registrar?: string,
-  expires?: Date,
-  deletion?: Date
-}
