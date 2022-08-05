@@ -1,5 +1,4 @@
 import TelegramBot from 'node-telegram-bot-api'
-import db from './lib/db.js'
 
 import getUser from './class/User.js'
 
@@ -15,9 +14,31 @@ if (process.env.DEV_MODE) {
 bot.on('message', async msg => {
   const user = await getUser(msg.chat.id)
   bot.sendMessage(user.id, user.id.toString())
-  if (msg.text = '/reset') {
+
+  // Первый запуск
+  if (msg.text === '/start') {
+    bot.sendMessage(user.id, 'Приветствие.')
+  }
+
+  // Перезагрузка бота
+  if (msg.text === '/reset') {
     await user.reset()
     bot.sendMessage(user.id, 'Бот перезагружен.')
+  }
+
+  // TODO: Добавление домена
+  if (msg.text === '/add') {
+    bot.sendMessage(user.id, 'Добавление домена.')
+  }
+
+  // TODO: Удаление домена
+  if (msg.text === '/delete') {
+    bot.sendMessage(user.id, 'Удаление домена.')
+  }
+
+  // TODO: Список доменов
+  if (msg.text === '/list') {
+    bot.sendMessage(user.id, 'Список доменов пользователя.')
   }
 })
 
