@@ -1,6 +1,6 @@
 import db from '../lib/db.js'
 
-class User implements IUser {
+class User {
   id: number
   isAddingDomain: boolean
   isDeletingDomain: boolean
