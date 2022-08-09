@@ -13,33 +13,40 @@ if (process.env.DEV_MODE) {
 
 bot.on('message', async msg => {
   const user = await getUser(msg.chat.id)
-  bot.sendMessage(user.id, user.id.toString())
 
   // Первый запуск
   if (msg.text === '/start') {
-    bot.sendMessage(user.id, 'Приветствие.')
+    await bot.sendMessage(user.id, 'Приветствие.')
+    return
   }
 
   // Перезагрузка бота
   if (msg.text === '/reset') {
     await user.reset()
-    bot.sendMessage(user.id, 'Бот перезагружен.')
+    await bot.sendMessage(user.id, 'Бот перезагружен.')
+    return
   }
 
   // TODO: Добавление домена
   if (msg.text === '/add') {
-    bot.sendMessage(user.id, 'Добавление домена.')
+    await bot.sendMessage(user.id, 'Введите доменное имя.')
+    await user.setIsAddingDomain(true)
+    return
   }
 
   // TODO: Удаление домена
   if (msg.text === '/delete') {
-    bot.sendMessage(user.id, 'Удаление домена.')
+    await bot.sendMessage(user.id, 'Удаление домена.')
+    return
   }
 
   // TODO: Список доменов
   if (msg.text === '/list') {
-    bot.sendMessage(user.id, 'Список доменов пользователя.')
+    await bot.sendMessage(user.id, 'Список доменов пользователя.')
+    return
   }
+
+  await bot.sendMessage(user.id, 'Неизвестная команда.')
 })
 
 export default bot
