@@ -1,6 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api'
 
-import getUser from './class/User.js'
+import getUser from './model/user.js'
+import Domains from './model/domain.js'
 
 const bot = new TelegramBot(process.env.BOT_TOKEN)
 
@@ -13,6 +14,19 @@ if (process.env.DEV_MODE) {
 
 bot.on('message', async msg => {
   const user = await getUser(msg.chat.id)
+
+  // Если ждем ввода домена
+  if (user.isAddingDomain) {
+    await user.setIsAddingDomain(false)
+    
+    // TODO: Передать сообщение пользователя в функцию, добавляющую домен
+    // Если домен уже есть, сообщить об этом
+    const domain = await Domains.getDomain(msg.text.toLocaleLowerCase())
+
+    // Сообщить о результате
+    await bot.sendMessage(user.id, domain !== null ? `Домен ${domain.name} добавлен\nОкончание: ${domain.expires}` : 'Домен не найден')
+    return
+  }
 
   // Первый запуск
   if (msg.text === '/start') {
